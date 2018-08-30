@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductController
+class ProductController extends AbstractController
 {
     /**
      * @Route("/")
@@ -20,9 +21,8 @@ class ProductController
      */
     public function show($productName)
     {
-        return new Response(sprintf(
-            'Product name: "%s"',
-            $productName
-        ));
+        return $this->render('product/show.html.twig', [
+            'title' => ucwords(str_replace('-', ' ', $productName)),
+        ]);
     }
 } 

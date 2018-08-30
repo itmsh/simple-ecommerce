@@ -10,6 +10,7 @@
         "symfony/console": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
+        "symfony/twig-bundle": "*",
         "symfony/web-server-bundle": "*",
         "symfony/yaml": "*"
     },
