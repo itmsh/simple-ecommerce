@@ -11,14 +11,6 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/")
-     */
-    public function homepage()
-    {
-        return new Response('OMG');
-    }
-
-    /**
      * @Route("/تست/{productName}", options={"utf8": true})
      */
     public function show($productName, AdapterInterface $cache)

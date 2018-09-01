@@ -3,4 +3,16 @@ fos_elastica:
     clients:
         default: { host: localhost, port: 9200 }
     indexes:
-        app: ~
+        app: 
+            types:
+                product:
+                    properties:
+                        title: ~
+                        description: ~
+
+                    persistence: 
+                        driver: orm
+                        model: App\Entity\Product
+                        provider: ~
+                        listener: ~
+                        finder: ~
