@@ -44,12 +44,15 @@
                 form = $('#searchform');
             if(me.val()){
                 var jqxhr = $.post( form.attr('action').replace("query", me.val()))
-                .done(function(data) {        
+                .done(function(result) {        
                     var html = "";   
-                    if(!data[0]){
+                    if(result.fromCache){
+                        html+="<b>Result from cache</b><br>"
+                    }
+                    if(!result.data[0]){
                         $("#searchresult ul").html(' ');
                     }         
-                    $.each(data, function(k,v){
+                    $.each(result.data, function(k,v){
                         if(v.variants){
                             $.each(v.variants, function(kv,vv){
                                 html+= v.title+" "+vv.color+" "+vv.price+"<br>";
@@ -58,6 +61,7 @@
                             html+= v.title+"<br>";
                         }
                     });
+                    
                     $("#searchresult ul").html(html);
                 });
             }else{

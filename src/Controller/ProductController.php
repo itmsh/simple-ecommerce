@@ -16,34 +16,38 @@ class ProductController extends AbstractController
     /**
      * @Route("suggestions/{query}", name="suggestions")
      */
-    public function suggestions($query,RepositoryManagerInterface $manager){
+    public function suggestions($query,RepositoryManagerInterface $manager, AdapterInterface $cache){
+            
+        //get from cache
+        $item = $cache->getItem('suggestion_'.md5($query));
+        if (!$item->isHit()) {
 
-        $finder = $manager->getRepository('App:Product');                
-        $results = $finder->findHybrid($query);
+            //find index in elasticsearch
+            $finder = $manager->getRepository('App:Product');
+            $results = $finder->findHybrid($query);
 
+            $item->set($results);
+            $cache->save($item);
+
+            $fromCache = false;
+        }else{
+            $fromCache = true;
+        }
+        $results = $item->get();
+
+        
+        //making response
         $data = [];
         foreach($results as $value){
             $data[] = $value->getResult()->getHit()['_source'];
         }
 
-        return new JsonResponse($data);
-
-    }
-    /**
-     * @Route("/تست/{productName}", options={"utf8": true})
-     */
-    public function show($productName, AdapterInterface $cache)
-    {
-
-        $item = $cache->getItem('markdown_'.md5($productName));
-        if (!$item->isHit()) {
-            $item->set($productName);
-            $cache->save($item);
-        }
-        $productName = $item->get();
-
-        return $this->render('product/show.html.twig', [
-            'title' => ucwords(str_replace('-', ' ', $productName)),
+        return new JsonResponse([
+            'success'=>true,
+            'fromCache'=>$fromCache,
+            'data'=>$data
         ]);
+
     }
+    
 } 
