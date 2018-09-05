@@ -11,10 +11,60 @@
 <div class="example-wrapper">
     <h1>Simple Ecommerce</h1>
 
-   Login Or Logout
-    <ul>
-        <li><a href="{{ path('login') }}">Login</a></li>
-        <li><a href="{{ path('logout') }}">Logout</a></li>
-    </ul>
+    <div>
+        search:
+        <form id="searchform" action="{{ path('suggestions', {query: 'query'}) }}" method="POST">
+            <input id="searchinput" type="text">
+        </form>
+        <div id="searchresult">
+            suggestion result:
+            <br>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    
+
+    <div>
+        <ul>
+            <li><a href="{{ path('login') }}">Login</a></li>
+            <li><a href="{{ path('logout') }}">Logout</a></li>
+        </ul>
+    </div>
+
 </div>
+
+ <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script>
+        $( "#searchinput" ).keyup(function() {
+            var me = $(this),
+                form = $('#searchform');
+            if(me.val()){
+                var jqxhr = $.post( form.attr('action').replace("query", me.val()))
+                .done(function(data) {        
+                    var html = "";   
+                    if(!data[0]){
+                        $("#searchresult ul").html(' ');
+                    }         
+                    $.each(data, function(k,v){
+                        if(v.variants){
+                            $.each(v.variants, function(kv,vv){
+                                html+= v.title+" "+vv.color+" "+vv.price+"<br>";
+                            });
+                        }else{
+                            html+= v.title+"<br>";
+                        }
+                    });
+                    $("#searchresult ul").html(html);
+                });
+            }else{
+                $("#searchresult ul").html(' ');
+            }      
+
+        });
+    </script>
+
 {% endblock %}

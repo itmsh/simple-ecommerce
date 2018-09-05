@@ -9,6 +9,11 @@ fos_elastica:
                     properties:
                         title: ~
                         description: ~
+                        variants: 
+                            type: "nested"
+                            properties: 
+                                price: ~
+                                color: ~
 
                     persistence: 
                         driver: orm
