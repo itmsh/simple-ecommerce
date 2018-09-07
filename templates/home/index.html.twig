@@ -44,7 +44,7 @@
                 form = $('#searchform');
             if(me.val()){
                 var jqxhr = $.post( form.attr('action').replace("query", me.val()))
-                .done(function(result) {        
+                .done(function(result) {   
                     var html = "";   
                     if(result.fromCache){
                         html+="<b>Result from cache</b><br>"
@@ -53,7 +53,7 @@
                         $("#searchresult ul").html(' ');
                     }         
                     $.each(result.data, function(k,v){
-                        if(v.variants){
+                        if(v.variants && v.variants[0]){
                             $.each(v.variants, function(kv,vv){
                                 html+= v.title+" "+vv.color+" "+vv.price+"<br>";
                             });

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/elastica-bundle": "^5.0",
+        "friendsofsymfony/rest-bundle": "^2.4",
         "predis/predis": "^1.1",
         "sensio/framework-extra-bundle": "^5.2",
         "sensiolabs/security-checker": "^4.1",
@@ -14,6 +15,7 @@
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "*",
+        "symfony/serializer": "*",
         "symfony/twig-bundle": "*",
         "symfony/web-server-bundle": "*",
         "symfony/yaml": "*"
