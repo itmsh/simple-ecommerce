@@ -5,3 +5,6 @@
 products:
     type:     rest
     resource: App\Controller\Rest\Admin\ProductsController
+users:
+    type:     rest
+    resource: App\Controller\Rest\Web\UsersController
