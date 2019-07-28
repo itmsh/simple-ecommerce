@@ -1,5 +1,5 @@
 Installation
-============
+=============
 
   1. $ git clone https://github.com/itmsh/simple-ecommerce.git
   2. cd simple-ecommerce
